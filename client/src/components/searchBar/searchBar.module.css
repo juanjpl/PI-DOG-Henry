@@ -1,0 +1,19 @@
+
+
+.contenedorSearch{
+    display: flex;
+    flex-direction: row;
+    justify-content:space-around;
+    background-color: rgba(252, 140, 140, 0.74);
+    align-items: center;
+    padding: 1rem 0rem;
+
+}
+
+.contenedorOrder{
+    display: flex;
+    flex-direction: row;
+    justify-content:space-around;
+    align-items: center;
+
+}

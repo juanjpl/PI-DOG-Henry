@@ -1,0 +1,62 @@
+
+
+.contenedorDogs{
+    
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width:75%;
+    height: 40vw;
+    margin:1rem auto ;
+}
+
+.contenedorPaginador{
+  
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  
+}
+
+.botoneraPaginador{
+    margin:auto;
+   
+}
+
+.prevbtn,
+.nextbtn {
+  background: transparent;
+  border-color: transparent;
+  font-weight: bold;
+  text-transform: capitalize;
+  letter-spacing: 0.1rem;
+  margin: 0.5rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color:#fff;
+}
+
+.pagebtn {
+    width: 2rem;
+    height: 2rem;
+    background: hsl(205, 90%, 76%);
+    border-color: transparent;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0.5rem 0.1rem;
+    transition: all 0.3s linear;
+    color:white ;
+  }
+
+  .activebtn {
+    width: 2rem;
+    height: 2rem;
+    border-color: transparent;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0.5rem 0.1rem;
+    transition: all 0.3s linear;
+    background: hsl(205, 87%, 42%);
+    color:  #fff;
+
+  }
