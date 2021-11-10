@@ -9,6 +9,20 @@ const initialState = {
 }
 
 
+const paginate = (pagiDog) => {
+    const itemsPerPage = 8
+    const numberOfPages = Math.ceil(pagiDog.length / itemsPerPage)
+  
+    const newDogs = Array.from({ length: numberOfPages }, (_, index) => {
+      const start = index * itemsPerPage
+      return pagiDog.slice(start, start + itemsPerPage)
+    })
+  
+    return newDogs
+  }
+
+
+
 export default function reducer(state= initialState , action) {
     switch(action.type){
         case FETCH_DOGS:
@@ -20,7 +34,7 @@ export default function reducer(state= initialState , action) {
         case SEARCH_DOGS:
             return{
                 ...state,
-                filtroDogs: action.payload
+                filtroDogs: paginate(action.payload)
             }  
             
         case SORT:

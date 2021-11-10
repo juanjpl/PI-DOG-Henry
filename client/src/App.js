@@ -5,7 +5,7 @@ import AddDog from './components/addDog'
 import Landing from './components/landing/landing'
 import Home from './components/home/home'
 import {Switch , Route} from 'react-router'
-import Henry from './components/henry';
+import Henry from './components/henry/henry';
 import About from './components/about'
 
 function App() {

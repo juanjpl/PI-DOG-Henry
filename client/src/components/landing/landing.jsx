@@ -1,6 +1,34 @@
 import {Link} from 'react-router-dom'
+
+import { useEffect , useState } from 'react';
+import { useDispatch , useSelector} from 'react-redux'
+import { fetchDogs } from "../../store/actions";
+
 import styles from './landing.module.css'
 export default function Landing(){
+
+    let perros = useSelector((state)=> state.filtroDogs);
+    let dispatch = useDispatch();
+
+    const [loading, setLoading] = useState(true)
+
+
+  
+    useEffect(()=>{
+
+        if(!loading){
+            return
+        }
+ 
+         dispatch(fetchDogs())
+         
+         setLoading(false)
+ 
+     },[dispatch, perros, loading ])
+
+     console.log(perros)
+    
+     
 
     return(
         <div className={styles.contenedor} >

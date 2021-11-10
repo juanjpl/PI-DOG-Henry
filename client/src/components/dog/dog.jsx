@@ -20,6 +20,7 @@ export default function Dog({image_url ,id , name ,temperament, life_span, weigh
                 :
                 <h2 className={styles.dogDb} >DB DOG</h2>
             }
+
             <h2 className={styles.texto} >weight: {weight} kg</h2>
             <h2 className={styles.texto} >Height: {height} mts</h2>
             <h2 className={styles.texto} >Life Span: {life_span} years</h2>

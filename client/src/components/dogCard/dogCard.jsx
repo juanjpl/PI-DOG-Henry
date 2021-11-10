@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react'
 import axios from 'axios'
 import {useParams} from 'react-router'
+import Loading from '../loading/loading'
 import Dog from '../dog/dog'
 import Card from '../card/card'
 
@@ -27,21 +28,37 @@ export default function DogCard(){
 
     //console.log(perro)
     return( 
-        <div>
+        <div className={styles.contenedor} >
             {
                 perro 
                 ?
                 <div   className={styles.contenedorCard} >
                    
                     <Card {...perro} />
-                    <button>MODIFICAR</button>
-                    <button>ELIMINAR</button>
+
+               
+
+                    <div className={styles.contenerodBotonera} > 
+
+                      
+                      {
+                
+                (perro.createDB)
+                ?
+                <button className={styles.buttonM} >MODIFICAR</button>
+                :
+                <button className={styles.buttonA} >GUARDAR</button>
+            }
+                     
+                        <button className={styles.buttonE} >ELIMINAR</button>
+                    </div>
+                 
 
 
                 </div>
                   
                 :
-                <div>loading</div>
+                <Loading/>
             }
         </div>
     )
