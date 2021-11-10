@@ -6,7 +6,7 @@ import Landing from './components/landing/landing'
 import Home from './components/home/home'
 import {Switch , Route} from 'react-router'
 import Henry from './components/henry/henry';
-import About from './components/about'
+import About from './components/about/about'
 
 function App() {
   return (
