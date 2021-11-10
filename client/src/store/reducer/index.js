@@ -1,4 +1,4 @@
-import { FETCH_DOGS , SEARCH_DOGS , SORT } from "../actions";
+import { FETCH_DOGS , SEARCH_DOGS , SORT ,GET_TEMPERAMENTS, ADD_DOG , DELETE_DOG} from "../actions";
 import { ASCENDENTE } from "../../constantes/sort";
 
 
@@ -53,7 +53,20 @@ export default function reducer(state= initialState , action) {
                 ...state,
                 filtroDogs : ordenamiento
             } 
-            
+        case GET_TEMPERAMENTS:
+            return{
+                ...state,
+                temperamentos:action.payload
+                
+            }
+        case ADD_DOG:
+                return{
+                    ...state,
+                }
+        case DELETE_DOG:
+                return{
+                    ...state
+                }
 
 
         default :

@@ -249,19 +249,11 @@ router.put('/:id' , async (req , res , next) =>{
   
 })
 
-/*
- "name": "Sebastian",
-        "height": "20mts",
-        "weight": "30kg",
-        "life_span": "20años",
-        "image_url": "https://www.jamiesale-cartoonist.com/wp-content/uploads/dog-12.png",
-        "description": "Este es un nuevo perro con Update",
-        "createDB": true,
-        "Temperaments": ["Bueno" , "cariñoso"]
-*/
 
-router.delete('/' , (req , res , next) =>{
-    const { id } = req.body;
+router.delete('/:id' , (req , res , next) =>{
+
+    const { id } = req.params;
+    
 
     Dog.destroy({where: {id}})
       .then(() => {

@@ -1,7 +1,7 @@
 import './App.css';
 import Navbar from './components/navbar/navbar'
 import DogCard from './components/dogCard/dogCard'
-import AddDog from './components/addDog'
+import AddDog from './components/addDogs/addDog'
 import Landing from './components/landing/landing'
 import Home from './components/home/home'
 import {Switch , Route} from 'react-router'
