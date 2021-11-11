@@ -26,40 +26,70 @@ export default function AddDog(){
         temperaments:[]
     })
 
-    const [errors , setErrors] = useState({})
+    const [errors , setErrors] = useState({
+        name:"",
+        weight:"",
+        height:"",
+        life_span:"",
+        image_url:"",
+        temperaments:""
+    })
 
-    
-    function validate(input){
-        let errors = {};
+    const [habilitado , setHabilitado] = useState(false)
 
-        if(!input.name){
-            errors.name = "Se require un nombre";
-        }else if(!input.nickname){
-            errors.nickname = "Nickname debe ser completado"
+
+    function validarForm(errors){
+        let valid = true;
+
+        Object.values(errors).forEach((val) => val.length >0 && (valid =false))
+        if(valid){
+            setHabilitado(true)
+        }else{
+            setHabilitado(false)
         }
-
-        return errors;
     }
- 
 
-    function handleChange(e){
 
-        e.preventDefault()
+       function handleChange(e){
+
+        const { name , value} =e.target;
+
+        switch (name){
+            case "name":
+                errors.name = value.length < 5 ? "NAME requerido": ""
+                break;
+                case "image_url":
+                    errors.image_url = value.length < 10 ? "URL requerido": ""
+                    break;
+                    case "weight":
+                        errors.weight = value.length < 2 ? "WEIGHT requerido": ""
+                        break;
+                        case "life_span":
+                            errors.life_span = value.length < 2 ? "LIFE SPAN requerido": ""
+                            break;
+                        case "height":
+                            errors.height = value.length < 2 ? "HEIGHT requerido": ""
+                            break;
+                            case "temperaments":
+                                errors.temperaments = value.length = 0 ? "TEMPERAMENTOS requeridos": ""
+                                break;
+            default:
+                break;
+        }
 
         setInput({ 
             ...input,
             [e.target.name] : e.target.value
          })
 
-         
-        setErrors(validate({
-            ...input,
-            [e.target.name] : e.target.value
-        }))
-        
-
          console.log(input)
+        
+        validarForm(errors)
+        console.log(habilitado)
     }
+
+    console.log(habilitado)
+  
 
     function handleSubmit(e){
 
@@ -87,6 +117,7 @@ export default function AddDog(){
 
     useEffect(()=>{
         dispatch(getTemperaments())
+   
     },[dispatch])
 
     //console.log(temperaments)
@@ -113,30 +144,32 @@ export default function AddDog(){
 
             <div className={styles.contenedorHenry} >
 
-                    <form onSubmit={handleSubmit} className={styles.formulario} >
-                        <h1>Complete the form and click to send!</h1>
+                    <form onSubmit={handleSubmit}  className={styles.formulario} >
+                        <h1 className={styles.titulo} >Complete the form and click to send!</h1>
                      
-                        <label htmlFor="" > Nombre:</label>
-                        <input type="text" onChange={(e)=>handleChange(e)} name="name" placeholder="Breed" value={input.name} />
+                        {!errors.name ? null : <p className={styles.error}>{errors.name} </p>}
+                        <label className={styles.labels} htmlFor="" > Nombre:</label>
+                        <input className={styles.input} type="text" onChange={handleChange} name="name" placeholder="Breed" value={input.name} />
                         
-                        {
-                            errors.name && ( 
-                                <p className="error">{errors.name} </p>
-                            )
-                        }
+                        {!errors.image_url ? null : <p className={styles.error}>{errors.image_url} </p>}
+                        <label className={styles.labels} htmlFor="" > Imagen:</label>
+                        <input className={styles.input} type="text" name="image_url" onChange={handleChange} placeholder="https://image-url.com/image-dog" value={input.image_url} />
                         
-                        <label htmlFor="" > Imagen:</label>
-                        <input type="text" name="image_url" onChange={(e)=>handleChange(e)} placeholder="https://image-url.com/image-dog" value={input.image_url} />
-                        <label htmlFor=""  > Life_span :</label>
-                        <input type="text"name="life_span" onChange={(e)=>handleChange(e)} placeholder="Life_span" value={input.life_span} />
-                        <label htmlFor=""  > Weight :</label>
-                        <input type="text" name="weight" onChange={(e)=>handleChange(e)} placeholder="Weight" value={input.weight} />
-                        <label htmlFor="" > Height :</label>
-                        <input type="text"  name="height" onChange={(e)=>handleChange(e)} placeholder="Height" value={input.height} />
-                        <label htmlFor="" > Temperamentos:</label>
-                      
-
-                        <select onChange={(e)=>handleSelect(e)}>
+                        {!errors.life_span ? null : <p className={styles.error}>{errors.life_span} </p>}
+                        <label className={styles.labels} htmlFor=""  > Life_span :</label>
+                        <input className={styles.input} type="number" min="0" max="100" name="life_span" onChange={handleChange} placeholder="Life_span" value={input.life_span} />
+                        
+                        {!errors.weight ? null : <p className={styles.error}>{errors.weight} </p>}
+                        <label className={styles.labels} htmlFor=""  > Weight :</label>
+                        <input className={styles.input} type="number" min="0" max="100" name="weight" onChange={handleChange} placeholder="Weight" value={input.weight} />
+                        
+                        {!errors.height ? null : <p className={styles.error}>{errors.height} </p>}
+                        <label className={styles.labels} htmlFor="" > Height :</label>
+                        <input className={styles.input} type="number" min="0" max="100"  name="height" onChange={handleChange} placeholder="Height" value={input.height} />
+                        
+                        {!errors.temperaments ? null : <p className="error">{errors.temperaments} </p>}
+                        <label className={styles.labels} htmlFor="" > Temperamentos:</label>
+                        <select className={styles.input} onChange={(e)=>handleSelect(e)}>
                             {temperaments.map( (temp) =>( 
                                 <option value={temp.name}  >{temp.name} </option>
                             ))}
@@ -144,20 +177,34 @@ export default function AddDog(){
 
                                 {
                                     input.temperaments.map(el =>
-                                        <div>
+                                        <div className={styles.strings} >
                                             <p>{el} </p>
                                             <button className="botonX" onClick={()=> handleDelete(el)} >x</button>
                                         </div>
                                         )
                                 }
 
-                        <ul>
+                        <ul className={styles.listaTemp}>
                             <li>
                                 {input.temperaments.map(el =>el+ " , ")}
                             </li>
                         </ul>
+                                
+                        
+                       {
+                           (habilitado)
+                           ?
+                           <input className={styles.button}  type="submit" placeholder="imput 1" value="Enviar" />
+                           :
+                           <h2>Habilitame</h2>
 
-                        <input type="submit" placeholder="imput 1" value="Enviar" />
+                       }
+                               
+                           
+                           
+                        
+                       
+                        
 
                     </form>
             </div>
