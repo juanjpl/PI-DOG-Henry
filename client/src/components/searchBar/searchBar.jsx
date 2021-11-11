@@ -25,8 +25,7 @@ export default function SearchBar(){
         <div className={styles.contenedorSearch} >
              <div className={styles.contenedorOrder} >
             <Order/>
-            <Order/>
-            <Order/>
+
         </div>
         
             <form onSubmit={onSubmit}>

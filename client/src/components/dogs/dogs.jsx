@@ -1,4 +1,4 @@
-import {  useState } from "react";
+import {  useState , useEffect } from "react";
 import {  useSelector  } from "react-redux"
 
 import styles from './dogs.module.css'
@@ -16,49 +16,63 @@ export default function Dogs(){
 
     
     
-   
+   useEffect(()=>{
+
+    setDogs(perros)
+    console.log("hola USEEFFECT")
+   },[setDogs , perros])
 
 
-    const paginate = (pagiDog) => {
-      const itemsPerPage = 8
-      const numberOfPages = Math.ceil(pagiDog.length / itemsPerPage)
-    
-      const newDogs = Array.from({ length: numberOfPages }, (_, index) => {
-        const start = index * itemsPerPage
-        return pagiDog.slice(start, start + itemsPerPage)
-      })
-    
-      return newDogs
-    }
+  
+    console.log(dogs)
 
-   
+    if(!dogs){
+      return( 
+        <Loading/>
+      )
+    }else{
 
-   
+      const paginate = (pagiDog) => {
+        const itemsPerPage = 8
+        const numberOfPages = Math.ceil(pagiDog.length / itemsPerPage)
+      
+        const newDogs = Array.from({ length: numberOfPages }, (_, index) => {
+          const start = index * itemsPerPage
+          return pagiDog.slice(start, start + itemsPerPage)
+        })
+      
+        return newDogs
+      }
+  
+     
+  
+     
+  
+      
+      const nextPage = () => {
+        setPage((oldPage) => {
+          let nextPage = oldPage + 1
+          if (nextPage > nuevosPerros.length - 1) {
+            nextPage = 0
+          }
+          return nextPage
+        })
+      }
+  
+      const prevPage = () => {
+        setPage((oldPage) => {
+          let prevPage = oldPage - 1
+          if (prevPage < 0) {
+            prevPage = nuevosPerros.length - 1
+          }
+          return prevPage
+        })
+      }
+  
+      const handlePage = (index) => {
+        setPage(index)
+      }
 
-    
-    const nextPage = () => {
-      setPage((oldPage) => {
-        let nextPage = oldPage + 1
-        if (nextPage > nuevosPerros.length - 1) {
-          nextPage = 0
-        }
-        return nextPage
-      })
-    }
-
-    const prevPage = () => {
-      setPage((oldPage) => {
-        let prevPage = oldPage - 1
-        if (prevPage < 0) {
-          prevPage = nuevosPerros.length - 1
-        }
-        return prevPage
-      })
-    }
-
-    const handlePage = (index) => {
-      setPage(index)
-    }
 
 
     let nuevosPerros = paginate(perros)
@@ -77,8 +91,7 @@ export default function Dogs(){
         <div className={styles.contenedorDogs} >
          
           
-          { (nuevosPerros)
-            ?
+          { 
                 <div className={styles.contenedorPaginador}>
                   <div className={styles.botoneraPaginador} >
                   <button className={styles.prevbtn} onClick={prevPage}>
@@ -101,15 +114,13 @@ export default function Dogs(){
                   </div>
                   
                 </div>
-              :
-              <Loading/>
+           
             }
           
          
          
 
-            { (nuevosPerros)
-              ?
+            { 
                 
                nuevosPerros[page].map((dogs, index) =>{
 
@@ -117,11 +128,12 @@ export default function Dogs(){
                         <Dog key={index} {...dogs} />
                     )
                 })
-              :
-              null
+             
             }
 
         
         </div>
     )
+  }
+
 }

@@ -1,5 +1,5 @@
-import { FETCH_DOGS , SEARCH_DOGS , SORT ,GET_TEMPERAMENTS, ADD_DOG , DELETE_DOG} from "../actions";
-import { ASCENDENTE } from "../../constantes/sort";
+import { FETCH_DOGS , SEARCH_DOGS , SORT ,GET_TEMPERAMENTS, ADD_DOG , DELETE_DOG , SORT_WEIGHT , FILTER_CREATED} from "../actions";
+import { ASCENDENTE, LOWWEIGHT  } from "../../constantes/sort";
 
 
 const initialState = {
@@ -53,6 +53,44 @@ export default function reducer(state= initialState , action) {
                 ...state,
                 filtroDogs : ordenamiento
             } 
+            case SORT_WEIGHT:
+                let ordenamientoWeight = [...state.dogs]
+                
+                ordenamientoWeight = ordenamientoWeight.sort((a, b) => {
+                    if (parseInt(a.weight) < parseInt(b.weight)) {
+                        return action.payload === LOWWEIGHT ? -1 : 1;
+                    }
+                    if (parseInt(a.weight) > parseInt(b.weight)) {
+                        return action.payload === LOWWEIGHT ? 1 : -1;
+                    }
+                    return 0;
+                })
+                return{
+                    ...state,
+                    filtroDogs : ordenamientoWeight
+                } 
+
+
+
+
+                case FILTER_CREATED:
+
+                    
+
+                    let ordenamientoDB = action.payload === 'db' ? state.dogs.filter(el => el.createDB ) : state.dogs.filter(el =>!el.createDB) 
+                    
+                    return{
+                        ...state,
+                        filtroDogs:  action.payload === "all" ? state.dogs : ordenamientoDB
+                       
+                    }
+
+
+
+
+
+
+
         case GET_TEMPERAMENTS:
             return{
                 ...state,

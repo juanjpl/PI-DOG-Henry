@@ -3,9 +3,11 @@ import axios from 'axios'
 export const FETCH_DOGS = "FETCH_DOGS";
 export const SEARCH_DOGS = "SEARCH_DOGS";
 export const SORT= "SORT";
+export const SORT_WEIGHT = "SORT_WEIGHT"
 export const GET_TEMPERAMENTS = "GET_TEMPERAMENTS"
 export const ADD_DOG = "ADD_DOG"
 export const DELETE_DOG = "DELETE_DOG"
+export const FILTER_CREATED = "FILTER_CREATED"
 
 
 export function getTemperaments(){
@@ -89,6 +91,16 @@ export function searchDogs(search){
         .catch((error)=>{
             console.log(error)
         })
+    }
+}
+
+
+export function filterCreated(payload){
+    console.log(payload)
+
+    return{
+        type: FILTER_CREATED,
+        payload
     }
 }
 
